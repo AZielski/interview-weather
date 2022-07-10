@@ -12,8 +12,6 @@ var redisPort = Environment.GetEnvironmentVariable("REDIS_PORT");
 builder.Services.AddStackExchangeRedisCache(options => { options.Configuration = $"{redisAddress}:{redisPort}"; });
 var app = builder.Build();
 
-Console.WriteLine($"{redisAddress}:{redisPort}");
-
 app.UseSwagger();
 app.UseSwaggerUI();
 

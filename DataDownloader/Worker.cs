@@ -1,5 +1,5 @@
 using System.Text.Json;
-using RedisConnectorHelper.DataTemplates;
+using DataDownloader.DataTemplates;
 using StackExchange.Redis;
 
 namespace DataDownloader;

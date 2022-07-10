@@ -1,4 +1,4 @@
-namespace RedisConnectorHelper.DataTemplates;
+namespace DataDownloader.DataTemplates;
 
 public class Data
 {

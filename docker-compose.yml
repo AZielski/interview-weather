@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   api:
-    build: "./dockerfile_api"
+    build: .
     ports:
       - "8080:80"
       - "8081:443"
@@ -12,12 +12,12 @@ services:
     links:
       - redis
   redis:
-    image: "redis:alpine"
+    image: "redis/redis-stack"
     ports:
       - "6379:6379"
       - "8001:8001"
   data-caller:
-    build: "./dockerfile_data"
+    build: "./DataDownloader"
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
