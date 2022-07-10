@@ -13,7 +13,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\RedisConnectorHelper\RedisConnectorHelper.csproj" />
+      <None Remove="Dockerfile" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DataTemplates\DataTemplates.csproj" />
     </ItemGroup>
 
 </Project>

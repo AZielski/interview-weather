@@ -1,6 +1,6 @@
-using System.Text;
+using DataTemplates;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Distributed;
+using Weather.Interface;
 
 namespace Weather.Controllers;
 
@@ -8,26 +8,16 @@ namespace Weather.Controllers;
 [Route("[controller]")]
 public class WeatherController : ControllerBase
 {
-    private readonly ILogger<WeatherController> _logger;
-    private readonly IDistributedCache _cache;
+    private readonly IWeather _weather;
 
-    public WeatherController(ILogger<WeatherController> logger, IDistributedCache cache)
+    public WeatherController(IWeather weather)
     {
-        _logger = logger;
-        _cache = cache;
+        _weather = weather;
     }
     
     [HttpGet("{cityName}")]
-    public async Task<string?> Get(string cityName)
+    public async Task<RedisTemplate?> Get(string cityName)
     {
-        //Get data from cache
-        var key = $"{DateTime.UtcNow:ddMMyy}:{cityName}";
-        _cache.Set(key, Encoding.ASCII.GetBytes("essa"));
-        var cachedData = await _cache.GetStringAsync("090722:Warsaw");
-        
-        //get set from redis
-        
-
-        return cachedData ?? "Done";
+        return await _weather.GetWeatherAsync(cityName);
     }
 }

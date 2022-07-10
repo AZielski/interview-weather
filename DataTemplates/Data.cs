@@ -1,4 +1,4 @@
-namespace DataDownloader.DataTemplates;
+namespace DataTemplates;
 
 public class Data
 {

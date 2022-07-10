@@ -6,6 +6,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Weather/Weather.csproj", "Weather/"]
+COPY ["DataTemplates/DataTemplates.csproj", "DataTemplates/"]
 RUN dotnet restore "Weather/Weather.csproj"
 COPY . .
 WORKDIR "/src/Weather"

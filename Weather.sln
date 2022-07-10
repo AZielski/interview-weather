@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weather", "Weather\Weather.csproj", "{C0D7B314-3A74-453E-B836-763E0031E102}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataDownloader", "DataDownloader\DataDownloader.csproj", "{22F5EA96-619D-4E63-A3FE-74FC79AB601D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTemplates", "DataTemplates\DataTemplates.csproj", "{3D213498-2170-4250-AB21-0F09441DD6BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0D7B314-3A74-453E-B836-763E0031E102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0D7B314-3A74-453E-B836-763E0031E102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0D7B314-3A74-453E-B836-763E0031E102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0D7B314-3A74-453E-B836-763E0031E102}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22F5EA96-619D-4E63-A3FE-74FC79AB601D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22F5EA96-619D-4E63-A3FE-74FC79AB601D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22F5EA96-619D-4E63-A3FE-74FC79AB601D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22F5EA96-619D-4E63-A3FE-74FC79AB601D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D213498-2170-4250-AB21-0F09441DD6BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D213498-2170-4250-AB21-0F09441DD6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D213498-2170-4250-AB21-0F09441DD6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D213498-2170-4250-AB21-0F09441DD6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

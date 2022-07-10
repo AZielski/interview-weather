@@ -1,15 +1,18 @@
 using Weather.Helpers;
+using Weather.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IWeather, Weather.Service.Weather>();
 
 var redisAddress = Environment.GetEnvironmentVariable("REDIS_HOST");
 var redisPort = Environment.GetEnvironmentVariable("REDIS_PORT");
 
 builder.Services.AddStackExchangeRedisCache(options => { options.Configuration = $"{redisAddress}:{redisPort}"; });
+
 var app = builder.Build();
 
 app.UseSwagger();
