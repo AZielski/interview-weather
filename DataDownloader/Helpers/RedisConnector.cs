@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 
-namespace DataDownloader;
+namespace DataDownloader.Helpers;
 
 public class RedisConnector : IDisposable
 {
@@ -8,6 +8,7 @@ public class RedisConnector : IDisposable
     
     public void Dispose()
     {
+        Redis.Dispose();
         GC.SuppressFinalize(this);
     }
 
@@ -16,12 +17,11 @@ public class RedisConnector : IDisposable
         var address = Environment.GetEnvironmentVariable("REDIS_HOST");
         var port = Environment.GetEnvironmentVariable("REDIS_PORT");
         
-        var cache = new RedisCache(new RedisCacheOptions()
+        Redis = new RedisCache(new RedisCacheOptions()
         {
             Configuration = $"{address}:{port}",
         });
         
-        Redis = cache;
-        return cache;
+        return Redis;
     }
 }

@@ -17,10 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DataTemplates" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\DataTemplates\DataTemplates.csproj" />
     </ItemGroup>
 </Project>
