@@ -1,6 +1,6 @@
 using DataTemplates;
 using Microsoft.AspNetCore.Mvc;
-using Weather.Interface;
+using Weather.Interfaces;
 
 namespace Weather.Controllers;
 
@@ -8,16 +8,22 @@ namespace Weather.Controllers;
 [Route("[controller]")]
 public class WeatherController : ControllerBase
 {
-    private readonly IWeather _weather;
+    private readonly IWeatherService _weatherService;
 
-    public WeatherController(IWeather weather)
+    public WeatherController(IWeatherService weatherService)
     {
-        _weather = weather;
+        _weatherService = weatherService;
     }
     
     [HttpGet("{cityName}")]
-    public async Task<RedisTemplate?> Get(string cityName)
+    public async Task<RedisTemplate?> GetWeatherByCityAsync(string cityName)
     {
-        return await _weather.GetWeatherAsync(cityName);
+        return await _weatherService.GetWeatherByCityAsync(cityName);
+    }
+    
+    [HttpGet("{cityName}/{hour:int}")]
+    public async Task<RedisTemplate?> GetWeatherByCityAndHourAsync(string cityName, int hour)
+    {
+        return await _weatherService.GetWeatherByCityAndHourAsync(cityName, hour);
     }
 }

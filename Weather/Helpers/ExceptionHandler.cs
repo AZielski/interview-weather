@@ -1,24 +1,11 @@
 using System.Net;
-using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace Weather.Helpers;
 
-public class ErrorResult
-{
-    public ErrorResult(int statusCode, string message)
-    {
-        StatusCode = statusCode;
-        Message = message;
-    }
-
-    private int StatusCode { get; set; }
-    private string Message { get; set; }
-}
-
 public static class ExceptionHandler
 {
-    public static void ConfigureHandler(this IApplicationBuilder app, ILogger logger)
+    public static void ConfigureHandler(this IApplicationBuilder app, ILogger logger, bool logToResponse)
     {
         app.UseExceptionHandler(exceptionHandlerApp =>
         {
@@ -26,10 +13,11 @@ public static class ExceptionHandler
             {
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Response.ContentType = "application/json";
-
-                await context.Response.WriteAsync("");
+                var error = context.Features.Get<IExceptionHandlerPathFeature>()?.Error;
                 
-                logger.LogError(context.Features.Get<IExceptionHandlerPathFeature>()?.Error, "Error occured");
+                await context.Response.WriteAsync((logToResponse ? error?.ToString() : "") ?? string.Empty);
+                
+                logger.LogError(error, "Error occured");
             });
         });
     }

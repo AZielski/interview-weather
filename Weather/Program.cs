@@ -1,24 +1,37 @@
 using Weather.Helpers;
-using Weather.Interface;
+using Weather.Interfaces;
+using Weather.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IWeather, Weather.Service.Weather>();
 
-var redisAddress = Environment.GetEnvironmentVariable("REDIS_HOST");
-var redisPort = Environment.GetEnvironmentVariable("REDIS_PORT");
+builder.Services.AddScoped<IWeatherService, WeatherService>();
 
-builder.Services.AddStackExchangeRedisCache(options => { options.Configuration = $"{redisAddress}:{redisPort}"; });
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration =
+        $"{Environment.GetEnvironmentVariable("REDIS_HOST")}:{Environment.GetEnvironmentVariable("REDIS_PORT")}";
+});
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseHttpsRedirection();
 
-app.ConfigureHandler(app.Logger);
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseHsts();
+}
+
+app.ConfigureHandler(app.Logger, app.Environment.IsDevelopment());
 app.UseAuthorization();
 app.MapControllers();
 
