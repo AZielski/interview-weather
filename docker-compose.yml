@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  api:
+    build: "./dockerfile_api"
+    ports:
+      - "8080:80"
+      - "8081:443"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=redis
+    links:
+      - redis
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+  data-caller:
+    build: "./dockerfile_data"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    links:
+      - redis
+      
