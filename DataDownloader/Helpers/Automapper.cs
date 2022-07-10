@@ -3,7 +3,7 @@ using DataTemplates;
 
 namespace DataDownloader.Helpers;
 
-public class Mapper
+public static class Mapper
 {
     private static readonly MapperConfiguration Config = new(cfg =>
     {

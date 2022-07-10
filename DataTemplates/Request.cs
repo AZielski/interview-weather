@@ -1,7 +1,12 @@
+using System.Text.Json.Serialization;
+
 namespace DataTemplates;
 
 public class Request
 {
-    public string type { get; set; }
-    public string query { get; set; }
+    [JsonPropertyName("type")]
+    public string Type { get; set; }
+
+    [JsonPropertyName("query")]
+    public string Query { get; set; }
 }

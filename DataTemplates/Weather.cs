@@ -1,27 +1,55 @@
+using System.Text.Json.Serialization;
+
 namespace DataTemplates;
 
+[JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
 public class Weather
 {
-    public string date { get; set; }
-    public List<Astronomy> astronomy { get; set; }
-    public string maxtempC { get; set; }
-    public string maxtempF { get; set; }
-    public string mintempC { get; set; }
-    public string mintempF { get; set; }
-    public string avgtempC { get; set; }
-    public string avgtempF { get; set; }
-    public string totalSnow_cm { get; set; }
-    public string sunHour { get; set; }
-    public string uvIndex { get; set; }
-    public List<Hourly> hourly { get; set; }
+    [JsonPropertyName("date")]
+    public string Date { get; set; }
+
+    [JsonPropertyName("astronomy")]
+    public List<Astronomy> Astronomy { get; set; }
+
+    [JsonPropertyName("maxtempC")]
+    public int MaxTempC { get; set; }
+
+    [JsonPropertyName("maxtempF")]
+    public int MaxTempF { get; set; }
+
+    [JsonPropertyName("mintempC")]
+    public int MinTempC { get; set; }
+
+    [JsonPropertyName("mintempF")]
+    public int MinTempF { get; set; }
+
+    [JsonPropertyName("avgtempC")]
+    public int AvgTempC { get; set; }
+
+    [JsonPropertyName("avgtempF")]
+    public int AvgTempF { get; set; }
+
+    [JsonPropertyName("totalSnow_cm")]
+    public decimal TotalSnowCm { get; set; }
+
+    [JsonPropertyName("sunHour")]
+    public string SunHour { get; set; }
+
+    [JsonPropertyName("uvIndex")]
+    public int UvIndex { get; set; }
+
+    [JsonPropertyName("hourly")]
+    public List<Hourly> Hourly { get; set; }
 }
 
 public class WeatherDesc
 {
-    public string value { get; set; }
+    [JsonPropertyName("value")]
+    public string Value { get; set; }
 }
 
 public class WeatherIconUrl
 {
-    public string value { get; set; }
+    [JsonPropertyName("value")]
+    public string Value { get; set; }
 }

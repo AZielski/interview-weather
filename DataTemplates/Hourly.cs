@@ -1,44 +1,126 @@
+using System.Text.Json.Serialization;
+
 namespace DataTemplates;
 
+[JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)]
 public class Hourly
-{
-    public string time { get; set; }
-    public string tempC { get; set; }
-    public string tempF { get; set; }
-    public string windspeedMiles { get; set; }
-    public string windspeedKmph { get; set; }
-    public string winddirDegree { get; set; }
-    public string winddir16Point { get; set; }
-    public string weatherCode { get; set; }
-    public List<WeatherIconUrl> weatherIconUrl { get; set; }
-    public List<WeatherDesc> weatherDesc { get; set; }
-    public string precipMM { get; set; }
-    public string precipInches { get; set; }
-    public string humidity { get; set; }
-    public string visibility { get; set; }
-    public string visibilityMiles { get; set; }
-    public string pressure { get; set; }
-    public string pressureInches { get; set; }
-    public string cloudcover { get; set; }
-    public string HeatIndexC { get; set; }
-    public string HeatIndexF { get; set; }
-    public string DewPointC { get; set; }
-    public string DewPointF { get; set; }
-    public string WindChillC { get; set; }
-    public string WindChillF { get; set; }
-    public string WindGustMiles { get; set; }
-    public string WindGustKmph { get; set; }
-    public string FeelsLikeC { get; set; }
-    public string FeelsLikeF { get; set; }
-    public string chanceofrain { get; set; }
-    public string chanceofremdry { get; set; }
-    public string chanceofwindy { get; set; }
-    public string chanceofovercast { get; set; }
-    public string chanceofsunshine { get; set; }
-    public string chanceoffrost { get; set; }
-    public string chanceofhightemp { get; set; }
-    public string chanceoffog { get; set; }
-    public string chanceofsnow { get; set; }
-    public string chanceofthunder { get; set; }
-    public string uvIndex { get; set; }
-}
+    {
+        [JsonPropertyName("time")]
+        public int Time { get; set; }
+
+        [JsonPropertyName("heatIndexC")]
+        public int HeatIndexC { get; set; }
+
+        [JsonPropertyName("heatIndexF")]
+        public int HeatIndexF { get; set; }
+
+        [JsonPropertyName("dewPointC")]
+        public int DewPointC { get; set; }
+
+        [JsonPropertyName("dewPointF")]
+        public int DewPointF { get; set; }
+
+        [JsonPropertyName("windChillC")]
+        public int WindChillC { get; set; }
+
+        [JsonPropertyName("windChillF")]
+        public int WindChillF { get; set; }
+
+        [JsonPropertyName("windGustMiles")]
+        public int WindGustMiles { get; set; }
+
+        [JsonPropertyName("windGustKmph")]
+        public int WindGustKmph { get; set; }
+
+        [JsonPropertyName("chanceofrain")]
+        public int ChanceOfRain { get; set; }
+
+        [JsonPropertyName("chanceofremdry")]
+        public int ChanceOfRemdry { get; set; }
+
+        [JsonPropertyName("chanceofwindy")]
+        public int ChanceOfWindy { get; set; }
+
+        [JsonPropertyName("chanceofovercast")]
+        public int ChanceOfOvercast { get; set; }
+
+        [JsonPropertyName("chanceofsunshine")]
+        public int ChanceOfSunshine { get; set; }
+
+        [JsonPropertyName("chanceoffrost")]
+        public int ChanceOfFrost { get; set; }
+
+        [JsonPropertyName("chanceofhightemp")]
+        public int ChanceOfHightemp { get; set; }
+
+        [JsonPropertyName("chanceoffog")]
+        public int ChanceOfFog { get; set; }
+
+        [JsonPropertyName("chanceofsnow")]
+        public int ChanceOfSnow { get; set; }
+
+        [JsonPropertyName("chanceofthunder")]
+        public int ChanceOfThunder { get; set; }
+
+        [JsonPropertyName("uvIndex")]
+        public int UvIndex { get; set; }
+
+        [JsonPropertyName("tempC")]
+        public int TempC { get; set; }
+
+        [JsonPropertyName("tempF")]
+        public int TempF { get; set; }
+
+        [JsonPropertyName("windspeedMiles")]
+        public int WindSpeedMiles { get; set; }
+
+        [JsonPropertyName("windspeedKmph")]
+        public int WindSpeedKmph { get; set; }
+
+        [JsonPropertyName("winddirDegree")]
+        public int WindDirDegree { get; set; }
+
+        [JsonPropertyName("winddir16Point")]
+        public string WindDir16Point { get; set; }
+
+        [JsonPropertyName("weatherCode")]
+        public int WeatherCode { get; set; }
+
+        [JsonPropertyName("weatherIconUrl")]
+        public List<WeatherIconUrl> WeatherIconUrl { get; set; }
+
+        [JsonPropertyName("weatherDesc")]
+        public List<WeatherDesc> WeatherDesc { get; set; }
+
+        [JsonPropertyName("precipMM")]
+        public decimal PrecipMM { get; set; }
+
+        [JsonPropertyName("precipInches")]
+        public decimal PrecipInches { get; set; }
+
+        [JsonPropertyName("humidity")]
+        public int Humidity { get; set; }
+
+        [JsonPropertyName("visibility")]
+        public int Visibility { get; set; }
+
+        [JsonPropertyName("visibilityMiles")]
+        public int VisibilityMiles { get; set; }
+
+        [JsonPropertyName("pressure")]
+        public int Pressure { get; set; }
+
+        [JsonPropertyName("pressureInches")]
+        public int PressureInches { get; set; }
+
+        [JsonPropertyName("cloudcover")]
+        public int CloudCover { get; set; }
+
+        [JsonPropertyName("FeelsLikeC")]
+        public int FeelsLikeC { get; set; }
+
+        [JsonPropertyName("FeelsLikeF")]
+        public int FeelsLikeF { get; set; }
+        
+        public string ObservationTime { get; set; }
+    }

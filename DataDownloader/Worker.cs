@@ -3,6 +3,7 @@ using System.Text.Json;
 using DataDownloader.Helpers;
 using DataTemplates;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Mapper = DataDownloader.Helpers.Mapper;
 
 namespace DataDownloader;
@@ -53,38 +54,47 @@ public class Worker : BackgroundService
             return;
         }
         
-        foreach (var cityDetails in data)
+        _logger.Log(LogLevel.Information, "Processing data");
+        foreach (var cityDetails in data.Where(cityDetails => cityDetails is not null))
         {
-            if (cityDetails is null)
-            {
-                continue;
-            }
-
-            var hourlyList = cityDetails.Data.Weather.Select(x => x.Hourly);
-            var date = DateTime.Parse(cityDetails.Data.CurrentCondition.First().ObservationTime);
-            var toSave = new List<RedisTemplate>();
-
-            _logger.Log(LogLevel.Information, $"Parsing data for {cityDetails.Data.Request[0].Query}");
-            foreach (var item in hourlyList)
-            {
-                toSave.AddRange(Mapper.MapperInstance.Map<List<RedisTemplate>>(item));
-            }
-
-            _logger.Log(LogLevel.Information, "Saving data to redis");
-            foreach (var item in toSave)
-            {
-                item.City = cityDetails.Data.Request[0].Query.Split(',')[0];
-                item.Date = date.AddHours(item.Time / 100).AddMinutes(-date.Minute);
-                item.ObservationTime = data[0]!.Data.CurrentCondition.First().ObservationTime;
-                
-                await db.SetAsync($"{item.Date:ddMMyyhh}:{item.City}",
-                    Encoding.ASCII.GetBytes(JsonSerializer.Serialize(item).ToCharArray()));
-            }
+            await ProcessDataAsync(cityDetails!, db);
         }
 
         _logger.Log(LogLevel.Information, "Work done, closing connection");
     }
 
+    /// <summary>
+    /// Process data and saves them into redis cache
+    /// </summary>
+    /// <param name="cityDetails">City details to be saved</param>
+    /// <param name="db">Redis connection</param>
+    private async Task ProcessDataAsync(Root cityDetails, IDistributedCache db)
+    {
+        var hourlyList = cityDetails.Data.Weather.Select(x => x.Hourly);
+        var date = DateTime.Parse(cityDetails.Data.CurrentCondition.First().ObservationTime);
+        var toSave = new List<RedisTemplate>();
+
+        foreach (var item in hourlyList)
+        {
+            toSave.AddRange(Mapper.MapperInstance.Map<List<RedisTemplate>>(item));
+        }
+
+        foreach (var item in toSave)
+        {
+            item.City = cityDetails.Data.Request[0].Query.Split(',')[0];
+            item.Date = date.AddHours(item.Time / 100).AddMinutes(-date.Minute);
+            item.ObservationTime = $"{date:s}";
+                
+            await db.SetAsync($"{item.Date:ddMMyyhh}:{item.City}",
+                Encoding.ASCII.GetBytes(JsonSerializer.Serialize(item).ToCharArray()));
+        }
+    }
+    
+    /// <summary>
+    /// Fetch data from API and deserialize them
+    /// </summary>
+    /// <param name="city">City name for which weather should be fetched</param>
+    /// <returns>Fetched data as Root object</returns>
     private async Task<Root?> GetDataForCity(string city)
     {
         var client = new HttpClient();
