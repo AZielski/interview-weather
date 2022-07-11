@@ -3,14 +3,15 @@ services:
   api:
     build: .
     ports:
-      - "8080:80"
-      - "8081:443"
+      - "80"
+      - "443"
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_PASSWORD=redis
     links:
       - redis
+    scale: 5
   redis:
     image: "redis/redis-stack"
     ports:
